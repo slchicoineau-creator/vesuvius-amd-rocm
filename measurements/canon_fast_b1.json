@@ -1,0 +1,30 @@
+{
+ "model": "canon",
+ "arm": "fast",
+ "batch": 1,
+ "hipblaslt": "1",
+ "times_s": [
+  0.0834,
+  0.0817,
+  0.0799
+ ],
+ "median_s": 0.0817,
+ "max_memory_allocated_gb": 1.44,
+ "max_memory_reserved_gb": 1.58,
+ "rocm_smi_peak_used_gb": 2.66,
+ "rocm_smi_idle_before_gb": 0.7,
+ "device": "AMD Radeon Graphics",
+ "torch": "2.14.1+rocm7.2",
+ "hip": "7.2.53211",
+ "date": "2026-10-11 07:46:38",
+ "input": [
+  1,
+  1,
+  62,
+  256,
+  256
+ ],
+ "dtype": "fp16 autocast",
+ "what": "one forward of 1 tile(s) 62x256x256",
+ "conv_path": "conv3d_fast+fp32_taps"
+}

@@ -1,0 +1,30 @@
+{
+ "model": "copy",
+ "arm": "stock",
+ "batch": 1,
+ "hipblaslt": "1",
+ "times_s": [
+  75.5588,
+  76.5911,
+  74.773
+ ],
+ "median_s": 75.5588,
+ "max_memory_allocated_gb": 7.37,
+ "max_memory_reserved_gb": 10.04,
+ "rocm_smi_peak_used_gb": 11.08,
+ "rocm_smi_idle_before_gb": 0.7,
+ "device": "AMD Radeon Graphics",
+ "torch": "2.14.1+rocm7.2",
+ "hip": "7.2.53211",
+ "date": "2026-10-11 07:55:34",
+ "input": [
+  1,
+  8,
+  128,
+  384,
+  384
+ ],
+ "dtype": "bf16 autocast (checkpoint amp)",
+ "what": "one forward, no TTA",
+ "conv_path": "stock"
+}

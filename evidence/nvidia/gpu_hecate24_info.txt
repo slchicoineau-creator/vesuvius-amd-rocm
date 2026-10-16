@@ -1,0 +1,9 @@
+
+stock vs conv3d_fast[fp32_taps] (bf16):
+  fast - stock [output 0, shape (1, 1, 256, 256)]: max 8.383e-02  mean 1.173e-02  p99 4.329e-02  within tol 89.919 %  (mean |ref| 4.269e+00)
+  time per forward: stock 0.055 s, fast 0.096 s  -> 0.57x   peak memory stock 748 MiB, fast 1319 MiB
+
+error against a stock fp32 forward (lower is better):
+  stock [output 0, shape (1, 1, 256, 256)]: max 1.094e-01  mean 1.320e-02  p99 5.193e-02  within tol 90.646 %  (mean |ref| 4.264e+00)
+  fast  [output 0, shape (1, 1, 256, 256)]: max 1.479e-01  mean 1.585e-02  p99 6.346e-02  within tol 86.868 %  (mean |ref| 4.264e+00)
+  output 0: fast/stock error ratio  mean 1.201  p99 1.222   (<= ~1.1 means no extra rounding noise)

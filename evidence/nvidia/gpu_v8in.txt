@@ -1,0 +1,10 @@
+Loading weights from local directory
+
+stock vs conv3d_fast[taps] (fp16):
+  fast - stock [output 0, shape (4, 1, 64, 64)]: max 2.686e-03  mean 3.473e-04  p99 1.831e-03  within tol 100.000 %  (mean |ref| 1.262e+00)
+  time per forward: stock 0.156 s, fast 0.191 s  -> 0.82x   peak memory stock 3089 MiB, fast 3089 MiB
+
+error against a stock fp32 forward (lower is better):
+  stock [output 0, shape (4, 1, 64, 64)]: max 5.584e-03  mean 9.088e-04  p99 3.598e-03  within tol 100.000 %  (mean |ref| 1.262e+00)
+  fast  [output 0, shape (4, 1, 64, 64)]: max 7.049e-03  mean 1.054e-03  p99 4.581e-03  within tol 100.000 %  (mean |ref| 1.262e+00)
+  output 0: fast/stock error ratio  mean 1.160  p99 1.273   (<= ~1.1 means no extra rounding noise)

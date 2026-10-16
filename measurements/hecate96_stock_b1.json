@@ -1,0 +1,30 @@
+{
+ "model": "hecate96",
+ "arm": "stock",
+ "batch": 1,
+ "hipblaslt": "1",
+ "times_s": [
+  0.045,
+  0.043,
+  0.0422
+ ],
+ "median_s": 0.043,
+ "max_memory_allocated_gb": 1.27,
+ "max_memory_reserved_gb": 1.66,
+ "rocm_smi_peak_used_gb": 2.75,
+ "rocm_smi_idle_before_gb": 0.7,
+ "device": "AMD Radeon Graphics",
+ "torch": "2.14.1+rocm7.2",
+ "hip": "7.2.53211",
+ "date": "2026-10-11 07:45:45",
+ "input": [
+  1,
+  1,
+  16,
+  64,
+  64
+ ],
+ "dtype": "bf16 autocast",
+ "what": "one forward of 1 patch(es) 16x64x64",
+ "conv_path": "stock"
+}

@@ -1,0 +1,22 @@
+
+stock vs conv3d_fast[taps] (fp64):
+  fast - stock [output 0, shape (1, 2, 5, 9, 9)]: max 5.551e-17  mean 8.217e-18  p99 4.163e-17  within tol 100.000 %  (mean |ref| 5.526e-02)
+  time per forward: stock 0.001 s, fast 0.001 s  -> 1.07x
+  -> selftest taps: PASS (fp64, max abs diff 5.55e-17, 4 decomposed conv calls)
+
+stock vs conv3d_fast[acc32_bias] (fp64):
+  fast - stock [output 0, shape (1, 2, 5, 9, 9)]: max 5.551e-17  mean 8.217e-18  p99 4.163e-17  within tol 100.000 %  (mean |ref| 5.526e-02)
+  time per forward: stock 0.001 s, fast 0.001 s  -> 0.59x
+  -> selftest acc32_bias: PASS (fp64, max abs diff 5.55e-17, 4 decomposed conv calls)
+
+stock vs conv3d_fast[taps_as_channels] (fp64):
+  fast - stock [output 0, shape (1, 2, 5, 9, 9)]: max 5.551e-17  mean 8.504e-18  p99 4.101e-17  within tol 100.000 %  (mean |ref| 5.526e-02)
+  time per forward: stock 0.001 s, fast 0.001 s  -> 0.91x
+  -> selftest taps_as_channels: PASS (fp64, max abs diff 5.55e-17, 4 decomposed conv calls)
+
+stock vs conv3d_fast[fp32_taps] (fp64):
+  fast - stock [output 0, shape (1, 2, 5, 9, 9)]: max 5.551e-17  mean 8.217e-18  p99 4.163e-17  within tol 100.000 %  (mean |ref| 5.526e-02)
+  time per forward: stock 0.001 s, fast 0.002 s  -> 0.25x
+  -> selftest fp32_taps: PASS (fp64, max abs diff 5.55e-17, 4 decomposed conv calls)
+
+SELFTEST PASS

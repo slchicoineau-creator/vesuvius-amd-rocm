@@ -1,0 +1,115 @@
+{
+ "G2": {
+  "within_1_grey": 1.0,
+  "identical": 0.9714956205934573,
+  "max_grey_diff": 1,
+  "pearson_r": 0.9999849889068441,
+  "auc_fast": 0.8623017216120372,
+  "auc_stock": 0.8623022480649934,
+  "ap_fast": 0.6962323304573166,
+  "ap_stock": 0.6962718072923298,
+  "seconds_fast": 3493.0,
+  "seconds_stock": 7062.3,
+  "speedup": 2.02,
+  "verdict": "PASS"
+ },
+ "G2s": {
+  "within_1_grey": 1.0,
+  "identical": 0.9315226578575232,
+  "max_grey_diff": 1,
+  "pearson_r": 0.9999636721129611,
+  "auc_fast": 0.86232720299688,
+  "auc_stock": 0.8623022480649934,
+  "ap_fast": 0.6963277881189374,
+  "ap_stock": 0.6962718072923298,
+  "seconds_fast": 2840.0,
+  "seconds_stock": 7062.3,
+  "speedup": 2.49,
+  "verdict": "PASS"
+ },
+ "G2c": {
+  "within_1_grey": 1.0,
+  "identical": 0.9315952887134166,
+  "max_grey_diff": 1,
+  "pearson_r": 0.9999637058976188,
+  "auc_fast": 0.8623273619257541,
+  "auc_stock": 0.8623022480649934,
+  "ap_fast": 0.6963287544353256,
+  "ap_stock": 0.6962718072923298,
+  "seconds_fast": 1689.1,
+  "seconds_stock": 7062.3,
+  "speedup": 4.18,
+  "verdict": "PASS"
+ },
+ "G3": {
+  "r_fast_vs_stock_same_seed": 0.972858877530065,
+  "r_stock_seed130697_vs_seed1": 0.9650119954323191,
+  "r_fast_vs_released": 0.9723009082417293,
+  "health": {
+   "parsed": true,
+   "epoch_train_loss": [
+    0.616,
+    0.605,
+    0.605,
+    0.595,
+    0.598,
+    0.588,
+    0.578,
+    0.584,
+    0.578,
+    0.583
+   ],
+   "epoch_val_loss": [],
+   "nan": false,
+   "rising_last3": false,
+   "epoch_seconds": [
+    726,
+    664,
+    664,
+    664,
+    664,
+    664,
+    664,
+    665,
+    664,
+    665
+   ]
+  },
+  "epoch_seconds_median": {
+   "fast": 664.0,
+   "stock": 940.5
+  },
+  "optimizer_step_seconds": {
+   "fast": 7.82,
+   "stock": 11.08
+  },
+  "train_speedup_per_epoch": 1.42,
+  "epoch_loss": {
+   "fast": [
+    0.616,
+    0.605,
+    0.605,
+    0.595,
+    0.598,
+    0.588,
+    0.578,
+    0.584,
+    0.578,
+    0.583
+   ],
+   "stock": [
+    0.615,
+    0.6,
+    0.603,
+    0.591,
+    0.592,
+    0.579,
+    0.591,
+    0.584,
+    0.585,
+    0.578
+   ]
+  },
+  "verdict": "PASS"
+ }
+}
