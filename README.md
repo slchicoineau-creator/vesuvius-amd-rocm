@@ -19,7 +19,7 @@ What we found and fixed:
 2. Two settings that matter:  
 A math-library switch (ROCBLAS_USE_HIPBLASLT). Turn it on for half-precision jobs and off for full-precision jobs: the wrong setting is slower.  
 A memory setting that, left at its default, caused random crashes. We turned it off.  
-3. Every speed-up was checked against the normal version on real scroll data before we called it usable. Each check had a pass/fail rule written down and pushed before the test ran.  
+3. Every speed-up was checked against the normal version on real scroll data (PHerc0841, and PHerc1447 for the v8-in model) before we called it usable. Each check had a pass/fail rule written down and pushed before the test ran.  
 
 Results, from the package files:  
 Sheet-copying model  
@@ -338,6 +338,13 @@ See `KNOWN_ISSUES.md` for hardware and driver problems we ran into.
 ```bash
 HIP_VISIBLE_DEVICES="" CUDA_VISIBLE_DEVICES="" python tests/test_conv3d_fast.py     # CPU only
 ```
+
+## Prior work
+
+Two earlier projects deal with slow 3-D convolutions on AMD cards:
+
+- **InvokeAI** rewrites its stride-1 3-D convolutions as sums of 2-D ones for its ROCm video VAE ([their ROCm conv3d patch](https://github.com/invoke-ai/InvokeAI/blob/39baf58bfd7500cb92407875b029af8d74e0258f/invokeai/backend/wan/rocm_causal_conv3d.py), added July 2026). Its notes give 103 s native against 2.4 s decomposed for one 17-frame encode on a W7900 (RDNA3).
+- **[rdna4-conv3d-wmma](https://github.com/Easonsnowgeorge/rdna4-conv3d-wmma)** (Easonsnowgeorge, MIT) is a Triton WMMA `Conv3d` for gfx1201 cards such as the R9700. Its [design notes](https://github.com/Easonsnowgeorge/rdna4-conv3d-wmma/blob/aaaa9284492634ee00fe4e27cea2f6fddd34a159/docs/DESIGN.md) give 1.06x for the three-conv2d split and its README gives 4.8x for their own kernel, both against stock MIOpen on their UNet3D training step. That is a different model and step from ours (our v8-in training figure is 1.42x per epoch, `RESULTS.md` section 4), and this repository has no comparison with their kernel.
 
 ## Credits
 

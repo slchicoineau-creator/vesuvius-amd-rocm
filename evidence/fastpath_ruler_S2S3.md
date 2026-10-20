@@ -1,6 +1,6 @@
 # FASTPATH-RULER S2 and S3 result (2026-10-13, partner, Beast)
 
-Prereg `prereg/2026-10-12_partner_fastpath_ruler.md` as amended by `..._amend1.md` (c17bb1ac). Code committed before the run (014d4d4f). Raw: `s2.json`, `s2_raw.json`, `s3.json`, `s3_plan.json`, logs.
+Prereg `evidence/preregs/2026-10-12_partner_fastpath_ruler.md` as amended by `..._amend1.md` (c17bb1ac). Code committed before the run (014d4d4f). Raw: `s2.json`, `s2_raw.json`, `s3.json`, `s3_plan.json`, logs.
 Card 1 via `gpu-share job set --card 1`; ROCBLAS_USE_HIPBLASLT=1 (S2, S3 bf16 arms), 0 (S3 REF fp32). The job was paused once by another claim (`neural-sheet9`) and restarted from zero; the reported run is the uninterrupted second one.
 OC line: FAIL 5.7 % at R = 1.00, 81 % at 1.05, 99.5 % at 1.10 (`judge_20261013/judge_sim.json`, n = 20).
 

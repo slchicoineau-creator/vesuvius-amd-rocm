@@ -1,6 +1,6 @@
 # LASAGNA-GATE16b result (2026-10-13, partner, Beast): PASS for acc32_bias on the 3 layers; measured end-to-end 17.2x
 
-Prereg `prereg/2026-10-13_partner_lasagna_gate16b.md` (2322b0ca, pushed before the run); diagnosis `DIAG.md`. Card 1 via gpu-share, bf16 autocast, ROCBLAS_USE_HIPBLASLT=1, the same 16 tiles (seed 20261012) as GATE16.
+Prereg `evidence/preregs/2026-10-13_partner_lasagna_gate16b.md` (2322b0ca, pushed before the run); diagnosis `DIAG.md`. Card 1 via gpu-share, bf16 autocast, ROCBLAS_USE_HIPBLASLT=1, the same 16 tiles (seed 20261012) as GATE16.
 REF = GATE16's fp32 arrays (reused). STOCK re-run: all 16 STOCK arrays are bit-identical to GATE16's. FAST = `conv3d_fast` acc32_bias on exactly the 3 registered layers, every other Conv3d pinned to stock. One mode, one-sided 95 % bound as registered.
 
 ## Rule (n = 16; unit = summed |raw output - fp32 REF| per 192^3 tile)

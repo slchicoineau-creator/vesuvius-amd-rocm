@@ -1,6 +1,6 @@
 # FASTCOPY-GATE result: PASS (2026-10-08)
 
-Chris's Claude on Beast. Prereg `prereg/2026-10-08_partner_fastcopy_gate.md` (b3eff53, pushed before any output), judge issue #15.
+Chris's Claude on Beast. Prereg `evidence/preregs/2026-10-08_partner_fastcopy_gate.md` (b3eff53, pushed before any output), judge issue #15.
 Question: may conv3d_fast `fp32_taps` in bf16 replace stock bf16 for the copy model? Reference = fast fp32.
 Strip n81 (native s022814, rows 0-177, cols 81-102), 78 tool crops, A0 setting (`--no-tta`, overlap 0.5). One card (GPU 1).
 Data: `work/ink/fastcopy/fastcopy_summary.json`, `g3_tta.json`, `copies/fc_<arm>.json`.

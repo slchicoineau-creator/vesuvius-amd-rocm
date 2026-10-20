@@ -1,6 +1,6 @@
 # LASAGNA-SCOPE2 result (2026-10-13, partner, Beast): acc32_bias PASS on both extra crops (PHerc0500P2, PHerc0814)
 
-Prereg `prereg/2026-10-13_partner_lasagna_scope2.md` (b13692c3) + amendment 1 (a76c053d, 0500P2 has 100 predict3d calls, tile draw redone over 100 before the rerun), both pushed before the outputs they govern. Frozen mode/code (`conv3d_fast.py` blob 72bd4f7c, 3 layers, rest stock), model `lasagna_model_current.pt`, 256^3 crops, 16 tiles per crop, REF fp32 + STOCK + FAST computed fresh per crop, card 1 via gpu-share. Rule per crop with the Bonferroni 97.5 % one-sided bound (2 crops), PASS iff U <= 1.10.
+Prereg `evidence/preregs/2026-10-13_partner_lasagna_scope2.md` (b13692c3) + amendment 1 (a76c053d, 0500P2 has 100 predict3d calls, tile draw redone over 100 before the rerun), both pushed before the outputs they govern. Frozen mode/code (`conv3d_fast.py` blob 72bd4f7c, 3 layers, rest stock), model `lasagna_model_current.pt`, 256^3 crops, 16 tiles per crop, REF fp32 + STOCK + FAST computed fresh per crop, card 1 via gpu-share. Rule per crop with the Bonferroni 97.5 % one-sided bound (2 crops), PASS iff U <= 1.10.
 
 | crop (public 9.362 um, 113 keV, 1.2 m) | crop xyzwhd | tiles | R-hat | U (97.5 %) | L (2.5 %) | per-tile r | verdict | forward stock / fast | whole predict3d stock / fast | e2e |
 |---|---|---|---|---|---|---|---|---|---|---|

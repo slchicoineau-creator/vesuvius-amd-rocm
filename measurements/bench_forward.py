@@ -1,4 +1,6 @@
-"""AMD package v1 speed/VRAM table (prereg/2026-10-11_partner_rocm_ports.md): one forward pass per model and path.
+"""AMD package v1 speed/VRAM table (evidence/preregs/2026-10-11_partner_rocm_ports.md): one forward pass per model and path.
+Note: the input and output folders it uses (see R0 and the paths below) and run_all.sh are our own working files, not in this
+repository, so it does not run here as shipped. It is kept as the record of how RESULTS.md section 9 was made.
 Method (frozen): 1 warm-up forward, then median of 3 timed forwards; torch.cuda.max_memory_allocated/reserved and a
 rocm-smi VRAM peak (sampled every ~0.3 s from a thread, minus the idle usage before the run). Fresh process per row.
 Usage (repo root, one card, env set by run_all.sh):  bench.py MODEL ARM [BATCH]

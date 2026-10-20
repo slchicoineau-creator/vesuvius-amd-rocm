@@ -4,6 +4,7 @@ Copies of the small result files and pre-registrations that `RESULTS.md` and `RE
 Vesuvius Challenge data (PHerc0841, PHerc1447, PHerc0826, and for the lasagna rows PHerc0500P2 and PHerc0814). Files are unchanged copies, except `preregs/`, where
 private path/scroll-name mentions were replaced by neutral words ("a private cache folder", "private-scroll", "nothing private"; 2026-10-14: in `2026-10-12_partner_fastpath_ruler.md` a private brief path became "a private team brief", in `2026-10-13_partner_lasagna_scope2.md` two mentions of a private scroll name became "no private scroll" / "private scrolls excluded").
 The lasagna `*_RESULT.md` files carry notes dated 2026-10-14 marked post hoc (zero-fill caveat, `RESULTS.md` section 10).
+In the result `.md` files, each path to a pre-registration now points into `preregs/` here. Only the path changed. The `.json` files are unchanged.
 Paths and issue numbers inside the preregs refer to the team's private working repository and are not shipped.
 `lasagna_fitsurface_RESULT.md` is kept as written on 2026-10-14. Its "pending" and "needs a human decision" lines were
 decided on 2026-10-15: no lasagna speed-up is offered (`RESULTS.md` section 10).

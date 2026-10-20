@@ -1,6 +1,6 @@
 # LASAGNA-GATE16c result (2026-10-13, partner, Beast): PASS on 16 fresh tiles; acc32_bias confirmed; measured end-to-end 16.3x
 
-Prereg `prereg/2026-10-13_partner_lasagna_gate16c_confirm.md` (7de8a076, pushed before the run). Frozen mode (conv3d_fast.py blob 72bd4f7c, unchanged), 16 tiles drawn with seed 20261013 from the 109 tiles outside GATE16/16b (and outside the 3-tile look):
+Prereg `evidence/preregs/2026-10-13_partner_lasagna_gate16c_confirm.md` (7de8a076, pushed before the run). Frozen mode (conv3d_fast.py blob 72bd4f7c, unchanged), 16 tiles drawn with seed 20261013 from the 109 tiles outside GATE16/16b (and outside the 3-tile look):
 [6, 9, 12, 23, 30, 35, 42, 56, 74, 88, 89, 90, 99, 118, 120, 123]. REF (fp32) computed fresh, STOCK re-run, FAST = acc32_bias on the 3 registered layers. Card 1 via gpu-share, no claim was active, no waiting (job started 09:18:53, 13 s after queuing).
 
 ## Rule (n = 16; unit = summed |raw output - fp32 REF| per 192^3 tile)

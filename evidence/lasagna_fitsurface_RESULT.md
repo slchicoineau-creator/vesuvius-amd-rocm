@@ -1,6 +1,6 @@
 # LASAGNA-FITSURFACE: RESULT (partner, lane B, Beast; AI-written)
 
-Job finished 2026-10-14 07:46 CDT (gpu-share rc 0, `JOB_DONE`). Preregistration: `prereg/2026-10-13_partner_lasagna_fitsurface.md` (083b308e), amendment 1 (0ae5cac5, margin copy, GATE16-REAL), amendment 2 (6986cfe4, Stage 0 ladder R = 2000 / 1900 / 2100 and `cyl_init` steps 0). All numbers below were recomputed from the raw files on 2026-10-14 (method at the end).
+Job finished 2026-10-14 07:46 CDT (gpu-share rc 0, `JOB_DONE`). Preregistration: `evidence/preregs/2026-10-13_partner_lasagna_fitsurface.md` (083b308e), amendment 1 (0ae5cac5, margin copy, GATE16-REAL), amendment 2 (6986cfe4, Stage 0 ladder R = 2000 / 1900 / 2100 and `cyl_init` steps 0). All numbers below were recomputed from the raw files on 2026-10-14 (method at the end).
 
 ## Verdict
 
@@ -12,7 +12,7 @@ Job finished 2026-10-14 07:46 CDT (gpu-share rc 0, `JOB_DONE`). Preregistration:
 
 ## The frozen rules, quoted verbatim from the prereg files
 
-From `prereg/2026-10-13_partner_lasagna_fitsurface.md`:
+From `evidence/preregs/2026-10-13_partner_lasagna_fitsurface.md`:
 
 > **Bar B = the largest REF-vs-REF seed-to-seed distance** (3 pairs: s1-s2, s1-s3, s2-s3 of REF), the registered rule's "largest same-arm seed-to-seed distance of the reference".
 > **Decision statistic M = the median over the 9 cross pairs REF_si vs FAST_sj** (i, j in 1..3, including the 3 same-seed pairs).
@@ -25,7 +25,7 @@ From amendment 1, GATE16-REAL (same file):
 > **PASS iff U <= 1.10**; U > 1.10 and L > 1.00 = FAIL (worse than stock); U > 1.10 and L <= 1.00 = NOT SHOWN EQUIVALENT; per-tile r < 0.8 turns a non-PASS into NOT SHOWN EQUIVALENT.
 > GATE16-REAL PASS: the 3-layer `acc32_bias` fast path is within 1.10 of stock bf16's error on 16 real-data tiles of this crop (one crop, one scan, still no claim beyond that); the package may keep its "within the 1.10 margin" wording with this number added. NOT SHOWN EQUIVALENT or FAIL: the package states that the fast path is not shown equivalent to stock on real-data tiles and offers it only as an unvalidated speed option or withdraws the lasagna row; the fitted-surface result, whatever it is, is then read as "the surfaces fitted from a not-shown-equivalent prediction".
 
-From amendment 2 (`prereg/2026-10-14_partner_lasagna_fitsurface_amend2.md`):
+From amendment 2 (`evidence/preregs/2026-10-14_partner_lasagna_fitsurface_amend2.md`):
 
 > So this test now measures "surface fitted by the shipped patch fit from FAST vs REF predictions, from the same start", not the cylinder-shell step. The shell step cannot run on a crop-sized prediction box at all (root cause 2), so it was never testable here.
 > A PASS here says nothing about the cylinder-shell step or the whole-scroll chain (already listed as not claimed).

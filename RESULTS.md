@@ -121,9 +121,9 @@ Reference = stock fp32; 64 tiles for the tile check, a whole render for the outp
 | 2.4 µm | passed (p99 ratio 0.99) | 99.31 % of support, 98.96 % of non-zero pixels (max 7 grey levels) -- **bar was 99 % on both; non-zero pixels missed it by 0.04 points** | 1.92x (1.97x per patch) | **failed** |
 
 **Two different checks on the same pair (fp32_taps bf16 vs stock bf16, Hecate 2.4 µm), both reported, neither upgrades the other.**
-(1) The first gate (`prereg/2026-10-09_partner_hecate_fast_gate.md`) asked fast vs *stock* to agree within one grey level on at least 99 % of both support and
+(1) The first gate (`evidence/preregs/2026-10-09_partner_hecate_fast_gate.md`) asked fast vs *stock* to agree within one grey level on at least 99 % of both support and
 non-zero pixels; it **failed** (98.96 % of non-zero pixels). That verdict stands as written.
-(2) A later pre-registered ruler (`prereg/2026-10-12_partner_fastpath_ruler.md` with `..._amend1.md` (copies in `evidence/preregs/`); result
+(2) A later pre-registered ruler (`evidence/preregs/2026-10-12_partner_fastpath_ruler.md` with `..._amend1.md`; result
 `evidence/fastpath_ruler_S2S3.md`) asked a different question: is the fast path's error against the **fp32 reference** no larger than stock's? On 20 disjoint
 64x256x256 patches of the same public PHerc0841 region: ratio of summed errors R-hat 0.9994, one-sided 95 % upper bound U 1.020 (bar 1.10), lower bound L 0.976,
 per-patch r 0.9965 -> **PASS**. Mean error against fp32: stock 1.640 grey, fast 1.646 grey. This means "no worse than stock's own bf16 rounding", **not** a reading
@@ -154,7 +154,7 @@ Two ink-prediction runs reproduced from NVIDIA reference numbers, one card, abou
 
 ## 9. Speed and VRAM table, v1 (one forward per model, stock vs gated fast path; measured 2026-10-11)
 
-Method (pre-registered, `prereg/2026-10-11_partner_rocm_ports.md`): a fresh process per row, 1 warm-up forward, then the
+Method (pre-registered, `evidence/preregs/2026-10-11_partner_rocm_ports.md`): a fresh process per row, 1 warm-up forward, then the
 **median of 3 timed forwards**; memory = `torch.cuda.max_memory_allocated` / `max_memory_reserved` over those forwards, and
 the peak of `rocm-smi --showmeminfo vram` sampled every ~0.2 s over the whole process (this includes the ~0.7 GB the card
 already used at idle, the CUDA/HIP context, and the loaded weights). One R9700 (`HIP_VISIBLE_DEVICES=0`; the card's power cap was not re-read for this run), ROCm 7.2.2,
@@ -196,7 +196,7 @@ Reading it:
 ## 10. Organizer tools on ROCm: lasagna and the spiral fitter (measured 2026-10-11)
 
 Upstream villa `main` d63d3e968; one R9700 (`HIP_VISIBLE_DEVICES=1`), ROCm 7.2.2. Bars pre-registered in
-`prereg/2026-10-11_partner_rocm_ports.md` (reference = CPU torch on the same machine). Full report, scripts, logs and the
+`evidence/preregs/2026-10-11_partner_rocm_ports.md` (reference = CPU torch on the same machine). Full report, scripts, logs and the
 two patches (now villa PRs, linked in `evidence/README.md`: #2113 for the spiral fitter, #2114 and #2115 for lasagna), the fit comparisons `evidence/fit_compare_*.json`
 and the pre-registrations in `evidence/preregs/`.
 
@@ -255,7 +255,7 @@ error on the registered sampling; on real PHerc0841 data alone it was slightly w
 **Content-only re-check and fitted-surface test (LASAGNA-FITSURFACE, run 2026-10-14; status: decided 2026-10-15: speed-up none offered (author's note; review J1)).** Preregistration `evidence/preregs/2026-10-13_partner_lasagna_fitsurface.md` (083b308e) with amendment 1 (0ae5cac5, in the same file: predictions on a margin copy of the volume so that all 125 tiles read real data; coverage check: minimum real share 1.0) and amendment 2 (6986cfe4, `evidence/preregs/2026-10-14_partner_lasagna_fitsurface_amend2.md`). Result file: `evidence/lasagna_fitsurface_RESULT.md` (+ `evidence/lasagna_fitsurface.json`, `evidence/lasagna_gate16_real.json`).
 - **GATE16-REAL, FAIL (worse than stock).** The registered rule, unchanged, on 16 tiles of the PHerc0841 crop that read only real data, fp32 reference, stock bf16 and the 3-layer `acc32_bias` fast path all re-run on the margin copy: R-hat 1.105, U 1.113, L 1.096, per-tile r 0.978; all 16 tiles above 1.00 (1.075 to 1.142), 8 of 16 above 1.10. In absolute size both errors are small (mean absolute raw error 0.00221 fast against 0.00200 stock, 0.39 % against 0.35 % of the mean absolute reference output; about 0.13 against 0.11 grey levels of 255). So on real data the fast path is **not shown equivalent to stock**: it has about 10 % more error against the fp32 model than stock bf16 has. The earlier PASS rows above stand as registered, but they were pooled with tiles that read zero fill (section above); on the fully real tiles of GATE16-REAL the same rule gives FAIL. The lasagna fast path is therefore not offered: decided 2026-10-15: speed-up none offered (author's note; review J1). `RUNBOOK.md` section 10 keeps the recipe for experiments only.
 - **Fitted-surface test, PASS as registered, on a narrower test than first registered.** Median of the 9 REF-vs-FAST surface distances M = 2.05 vx (19 um) against the bar B = 6.76 vx (63 um, the largest REF-vs-REF seed-to-seed distance); M <= B. Scope limit, stated plainly: this compares the shipped patch fit on FAST vs REF predictions from a shared analytic cylinder shell; the registered cylinder-shell step could not run on a crop-sized prediction box (amendment 2). It says nothing about the cylinder-shell step, the real umbilicus or the whole-scroll chain, and it is one crop. It does not separate the fast path from stock bf16 (stock also passes: REF-vs-STOCK median 2.34 vx), the bar is loose (0.66 of a sheet width, set by how far the fit moves when the seed point moves 16 vx), and the strict reading (largest REF-vs-FAST pair no larger than B) is not met (6.83 vx against 6.76 vx). With the same seed point the FAST and REF surfaces are 0.16 to 0.89 vx apart (post hoc view).
-- **Open.** Whether this narrower test meets Sebastien's condition 2 (fit one surface from the FAST output and one from the fp32 REF on the same crop and show the two match) is OPEN: issue #7, request WC-20261014-01. Until he answers, numbers that go into a submission are re-run on stock.
+- **Decided 2026-10-15: not offered (section 10).** Sebastien's condition 2 (fit one surface from the FAST output and one from the fp32 REF on the same crop and show the two match) applied to any package number that rests on this test. No lasagna speed-up is offered, so no number does. Numbers that go into a submission are re-run on stock.
 
 **Spiral fitter** (`spiral-fitting/fit_spiral.py`, public PHerc0826 volume 20250821151701, slices 10208-11208, published
 tracks, 4,000 optimizer steps):
@@ -275,7 +275,7 @@ Deviations from the pre-registration, stated up front: (1) the registered refere
 path, so the reference is the NVIDIA run; (2) 4,000 optimizer steps per fit instead of the 30,000 of the earlier pilot recipe
 (about 11 min per fit on the R9700 instead of about 85).
 
-The bar, quoted verbatim from `prereg/2026-10-11_partner_rocm_ports.md` (evidence copy in `evidence/preregs/`):
+The bar, quoted verbatim from `evidence/preregs/2026-10-11_partner_rocm_ports.md`:
 
 > PASS if the median ROCm-vs-reference distance (`fit_compare.py` point-to-surface median, and
 > per-sector turn agreement where it applies) is <= the largest same-device seed-to-seed distance on the reference
