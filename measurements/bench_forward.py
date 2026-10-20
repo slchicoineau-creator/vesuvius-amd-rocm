@@ -6,7 +6,7 @@ rocm-smi VRAM peak (sampled every ~0.3 s from a thread, minus the idle usage bef
 Usage (repo root, one card, env set by run_all.sh):  bench.py MODEL ARM [BATCH]
   MODEL: copy | v8in | canon | hecate24 | hecate96
   ARM:   stock | fast   (fast = the gated fast path of that model; see PATHS)
-Writes work/amd_pkg/out/<model>_<arm>_b<batch>.json. Reuses the gate scripts' loaders and inputs read-only."""
+Writes <model>_<arm>_b<batch>.json to its output folder. Reuses the gate scripts' loaders and inputs read-only."""
 import json, os, statistics, subprocess, sys, threading, time
 import numpy as np
 H = os.path.dirname(os.path.abspath(__file__)); R0 = os.path.abspath(os.path.join(H, "..", ".."))

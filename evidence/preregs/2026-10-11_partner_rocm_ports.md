@@ -1,10 +1,10 @@
 # Pre-registration: organizer tools on AMD/ROCm (lasagna, spiral fitter) + AMD package v1 speed/VRAM table
 
-- Date: 2026-10-11 (pushed before any GPU output of these runs). Owner: Chris's side (Beast), team contribution
-  (Chris Thomas + Sebastien Chicoineau). Small-wins register rows 2 and 2b (`logs/partner/2026-10-10_small_wins/README.md`).
-- Upstream: ScrollPrize/villa main d63d3e968 (2026-10-11), fresh shallow clone in `work/villa_main` (git-ignored).
-- Machine: Beast, 2x AMD Radeon AI PRO R9700 32 GB (gfx1201), ROCm 7.2.2. Data: public PHerc0841 (and other public
-  open-data scrolls) only. No private-scroll data, no answer keys, ratings or sealed files.
+- Date: 2026-10-11 (pushed before any GPU output of these runs). Owner: Chris's side ([internal reference removed]), team contribution
+  (Chris Thomas + Sebastien Chicoineau). Small-wins register rows 2 and 2b (`[internal reference removed]`).
+- Upstream: ScrollPrize/villa main d63d3e968 (2026-10-11), fresh shallow clone in `[internal reference removed]` (git-ignored).
+- Machine: [internal reference removed], 2x AMD Radeon AI PRO R9700 32 GB (gfx1201), ROCm 7.2.2. Data: public PHerc0841 (and other public
+  open-data scrolls) only. No [internal reference removed] data, no answer keys, ratings or [internal reference removed] files.
 
 ## Questions
 1. **Lasagna** (`lasagna/`): can its install path select a ROCm torch build instead of silently falling back to CPU
@@ -15,7 +15,7 @@
 3. **Speed/VRAM table** for the organizers' 3-D models on the R9700: stock path vs the already-gated fast path.
 
 ## Reference and bars (frozen now)
-- **Reference run:** the same commit, inputs, config and seed on CPU torch on Beast (and, if Sebastien supplies one,
+- **Reference run:** the same commit, inputs, config and seed on CPU torch on [internal reference removed] (and, if Sebastien supplies one,
   his RTX 5070 Ti run; both are reported, CPU is the bar).
 - **Deterministic tensor outputs** (a single forward pass or a fixed computation, e.g. a normals/SDF volume):
   PASS if relative L2 error vs the reference is <= 1e-4 in fp32 (<= 1e-2 for a declared bf16/fp16 path).
@@ -31,11 +31,11 @@
   into `KNOWN_ISSUES.md` and the root cause is diagnosed (no tolerance loosening, no workaround that hides it).
 
 ## Compute rules
-- GPU only through `gpu-share claim <name> --hours <=1` per step, never while a v6 queue job is approved or running
+- GPU only through `[internal reference removed] claim <name> --hours <=1` per step, never while a v6 queue job is approved or running
   (scroll jobs first); one card per task (`ROCR_VISIBLE_DEVICES=0,1` + `HIP_VISIBLE_DEVICES=n`).
 - fp32 runs with `ROCBLAS_USE_HIPBLASLT=0`, bf16/fp16 with `=1` (CLAUDE.local.md bench).
 
 ## Release
-Drafts only, in `lanes/B_ink/release/`. Upstream PRs (expected: a `rocm` backend for lasagna's bootstrap, ROCm
+Drafts only, in `[internal reference removed]`. Upstream PRs (expected: a `rocm` backend for lasagna's bootstrap, ROCm
 dependency markers for spiral-fitting) go up only with both partners' OK and Chris's own written commentary
-(villa CONTRIBUTING). Results land in `lanes/B_ink/release/amd_rocm/RESULTS.md` with sources.
+(villa CONTRIBUTING). Results land in `[internal reference removed]` with sources.

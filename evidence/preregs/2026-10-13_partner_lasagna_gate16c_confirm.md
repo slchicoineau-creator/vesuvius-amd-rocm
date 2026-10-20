@@ -1,13 +1,13 @@
-# Pre-registration: LASAGNA-GATE16c (confirmatory). Does the frozen `conv3d_fast` acc32_bias mode on the 3 naive-kernel layers stay equivalent to stock bf16 on FRESH tiles? (partner, Beast)
+# Pre-registration: LASAGNA-GATE16c (confirmatory). Does the frozen `conv3d_fast` acc32_bias mode on the 3 naive-kernel layers stay equivalent to stock bf16 on FRESH tiles? (partner, [internal reference removed])
 
 - **Date:** 2026-10-13. Pushed before any gate16c output exists. **Owner:** partner (lane B). Decision owner for team use: Sebastien.
-- **Purpose:** GATE16b (`prereg/2026-10-13_partner_lasagna_gate16b.md`, result `work/rocm_ports/out/lasagna_gate16b/RESULT.md`: PASS, R-hat 0.427, U 0.540, e2e 17.2x) chose acc32_bias after a 3-tile look at tiles 0-2 of its own 16 gate tiles (disclosed selection effect). This run lifts that caveat on tiles that played no part in the choice.
-- **Parents:** GATE16 (`..._lasagna_gate16.md`), GATE16b, rule `prereg/2026-10-12_partner_fastpath_ruler.md` + `..._amend1.md`. No labels, no humans, no keys, no w00: every error is against the fp32 stock reference of the same input tile.
+- **Purpose:** GATE16b (`[internal reference removed]`, result `[internal reference removed]`: PASS, R-hat 0.427, U 0.540, e2e 17.2x) chose acc32_bias after a 3-tile look at tiles 0-2 of its own 16 gate tiles (disclosed selection effect). This run lifts that caveat on tiles that played no part in the choice.
+- **Parents:** GATE16 (`..._lasagna_gate16.md`), GATE16b, rule `[internal reference removed]` + `..._amend1.md`. No labels, no humans, no keys, no w00: every error is against the fp32 stock reference of the same input tile.
 
 ## Frozen (no change allowed)
 - **Mode:** `conv3d_fast` mode `acc32_bias`, exactly the 3 layers `shared_encoder.stages.0.blocks.0.conv1.conv`, `shared_encoder.stages.0.blocks.0.conv2.conv`, `shared_decoder.stages.5.convs.0.conv`; every other Conv3d pinned to stock.
-  Code: `lanes/B_ink/release/amd_rocm/conv3d_fast.py` (git blob 72bd4f7c6a52ad2e641cea3b09897b7b4c6e6a41, sha256 94f4db958bfe9b6fc5a8c194d545ee5e3e8a2f6e560bb97536740436d892b309, last changed in 28a4c1d2; unmodified in the working tree).
-  Gate script `work/rocm_ports/out/lasagna_gate16c/las_gate16c.py` (sha256 1ad48871b68b0828fb334b175d5f3f6b81fcf9c3acb91a555b71be4a1c451171) and `job_gate16c.sh` (sha256 3e468f8b8fd38cdde570bfa7794bd8bd4b6379352f75e25109757e782894d4f9);
+  Code: `[internal reference removed]` (git blob 72bd4f7c6a52ad2e641cea3b09897b7b4c6e6a41, sha256 94f4db958bfe9b6fc5a8c194d545ee5e3e8a2f6e560bb97536740436d892b309, last changed in 28a4c1d2; unmodified in the working tree).
+  Gate script `[internal reference removed]` (sha256 1ad48871b68b0828fb334b175d5f3f6b81fcf9c3acb91a555b71be4a1c451171) and `job_gate16c.sh` (sha256 3e468f8b8fd38cdde570bfa7794bd8bd4b6379352f75e25109757e782894d4f9);
   diff to `las_gate16b.py`: output paths, tile selection, REF mode re-enabled (fresh fp32 REF), `G16`/`REFC` point at the gate16c folder (stock end-to-end is re-run here). Scoring code, rule module, bootstrap seed 20261012 unchanged.
 - Model/data/command as GATE16 (`lasagna_model_current.pt`, PHerc0841 crop x4372 y3722 z9572, 256^3, `predict3d` as `scripts/las_predict.sh`). Card 1, bf16 autocast, `expandable_segments:False`.
 
@@ -31,5 +31,5 @@
 - FAIL / NOT SHOWN EQUIVALENT: acc32_bias is not confirmed; the speed-up is not claimable; stock bf16 stays. No further mode is tried under this prereg.
 
 ## Compute
-`gpu-share job set --card 1` (as before). Another session holds a priority-2 claim named `localcc` at times: not touched; if active the job waits and the waiting time is reported. About 10 min (ref + both) plus about 35 min (stock e2e) plus about 4 min (fast e2e). Kill date 2026-10-26.
-Outputs: `work/rocm_ports/out/lasagna_gate16c/` (`gate16c.json`, `ref.json`, `both.json`, `e2e_*.json`, logs, RESULT.md); tensors in git-ignored `work/cache/lasagna_gate16c/`.
+`[internal reference removed] job set --card 1` (as before). Another session holds a priority-2 claim named [internal reference removed] at times: not touched; if active the job waits and the waiting time is reported. About 10 min (ref + both) plus about 35 min (stock e2e) plus about 4 min (fast e2e). Kill date 2026-10-26.
+Outputs: `[internal reference removed]` (`gate16c.json`, `ref.json`, `both.json`, `e2e_*.json`, logs, RESULT.md); tensors in git-ignored `[internal reference removed]`.

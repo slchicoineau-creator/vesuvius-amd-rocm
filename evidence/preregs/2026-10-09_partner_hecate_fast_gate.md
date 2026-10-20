@@ -1,9 +1,9 @@
-# Pre-registration: HECATE-FAST-GATE: is conv3d_fast `fp32_taps` in bf16 equivalent to stock bf16 for Hecate (2.4 µm and 9.6 µm)? (partner, Beast)
+# Pre-registration: HECATE-FAST-GATE: is conv3d_fast `fp32_taps` in bf16 equivalent to stock bf16 for Hecate (2.4 µm and 9.6 µm)? (partner, [internal reference removed])
 
 - **Date:** 2026-10-09 (morning CDT). Pushed with the code, before any gate output exists (the commit time is the proof).
   **Owner:** partner (lane B machine). **Decision owner** for team use: Sebastien. Kind: tooling validation, no team hypothesis.
 - **Why:** CAPACITY.md row "Hecate 2.4 / 9.6 (bf16)" says "NO (bf16, never gated)". The copy model passed the same kind of
-  gate (`prereg/2026-10-08_partner_fastcopy_gate.md`, PASS, #15). Hecate is a ResNet-3D (Bottleneck [3,8,36,3]) with a 3D U-Net
+  gate (`[internal reference removed]`, PASS, [internal reference removed]). Hecate is a ResNet-3D (Bottleneck [3,8,36,3]) with a 3D U-Net
   decoder. **Count (CPU, measured before this push):** 56 3x3x3 Conv3d layers with more than one input channel that the fast lane
   rewrites (50 bottleneck `conv2` + 6 decoder blocks) in each checkpoint; 112 1x1x1 convs and the stem (7x7x7 at 2.4 µm, 3x3x3 with
   one input channel at 9.6 µm) stay stock. **Speed probe (measured, one real central patch, bf16 autocast, batch 1, GPU 1, after warm-up):**
@@ -12,22 +12,22 @@
 
 ## Data (published scroll data already cached; nothing private, no rating pages, no keys)
 
-- The PC-0841 surface volumes rendered earlier for the repro (`logs/partner/2026-10-01_pc0841_repro.md`): `work/fl/c0841/R_sv24.npy`
+- The PC-0841 surface volumes rendered earlier for the repro (`[internal reference removed]`): `[internal reference removed]`
   (109 x 2784 x 6496, 2.4 µm, 1.044 cm²) and `R_sv96.npy` (27 x 697 x 1626, 9.6 µm). Checkpoints `hecate_2.4um.pth`, `hecate_9.6um.pth`
-  (`work/fl/models/hecate`). The ink map `team_ink.tif` is not read.
+  (`[internal reference removed]`). The ink map `team_ink.tif` is not read.
 - **Patches (G1):** the model's own patch grid at its default stride (patch/2: 256 px at 2.4 µm with 64 layers, 64 px at 9.6 µm with
   16 layers), central depth window as `hecate.predict` uses it, non-reversed. Eligible = at least 90 % of the patch columns have a
   nonzero voxel in the window (1,050 eligible at each scale). **40 patches at 2.4 µm, 64 at 9.6 µm**, chosen by index
-  `linspace(0, n_eligible-1, N).round()` over the row-major eligible list (`work/ink/hecatefast/plan.json`, made before this push).
+  `linspace(0, n_eligible-1, N).round()` over the row-major eligible list (`[internal reference removed]`, made before this push).
   No selection on any output.
 
-## Arms (script `work/ink/hecatefast/hg.py`, run by `job.sh`; one card, GPU 1, `ROCBLAS_USE_HIPBLASLT=1` for all, no expandable_segments)
+## Arms (script `[internal reference removed]`, run by `job.sh`; one card, GPU 1, `ROCBLAS_USE_HIPBLASLT=1` for all, no expandable_segments)
 
 Model input exactly as `hecate.predict` builds it (uint8 / divisor, `valid` mask), output = `model(image, valid)`: the 2D logits (the
 quantity the PNG is made from; `hecate.py` itself is not modified).
 - **REF:** stock `nn.Conv3d`, fp32 (autocast off). The fp32 stock reference of the task.
 - **STOCK:** stock `nn.Conv3d`, bf16 autocast (what the repro and every Hecate run uses).
-- **F32T:** `conv3d_fast.enable(mode="fp32_taps")`, bf16 autocast. Activation as everywhere: `PYTHONPATH=work/fl/v8/fastpath CONV3D_FAST=1
+- **F32T:** `conv3d_fast.enable(mode="fp32_taps")`, bf16 autocast. Activation as everywhere: `PYTHONPATH=[internal reference removed] CONV3D_FAST=1
   CONV3D_FAST_MODE=fp32_taps` (here the same call made inside the script; the conv path is recorded as `conv3d_fast+fp32_taps`).
 - **REFF (record only):** conv3d_fast default taps in fp32, whole render, to give G2 a fp32 yardstick.
 
@@ -61,9 +61,9 @@ quantity the PNG is made from; `hecate.py` itself is not modified).
 ## Compute and process
 
 - 40 + 64 patches x 3 arms: about a minute. Whole renders at batch 1: 2.4 µm stock ~210 s, F32T ~110 s, REFF; 9.6 µm ~50 s each;
-  batch-4 pair at 2.4 µm ~7 min. About 20 minutes on one card. One `gpu-share claim hecate-gate --hours 1.5`, released by the job's
-  last line (also on failure). Before every step the job runs `lanes/A_geometry/loop/remote.py --home lanes/B_ink/loop status` and
-  `gpu-share status`, and stops if a v6 remote job is running or queued (Seb's work has priority).
-- Outputs in `work/ink/hecatefast/`: `plan.json`, `g1_<scale>.json`, `render_<scale>_<arm>_b<batch>.json`, `hecatefast_summary.json`.
-  Arrays and maps stay in git-ignored `work/cache/hecate_gate/` and are deleted afterwards.
+  batch-4 pair at 2.4 µm ~7 min. About 20 minutes on one card. One `[internal reference removed] claim hecate-gate --hours 1.5`, released by the job's
+  last line (also on failure). Before every step the job runs `[internal reference removed] --home [internal reference removed] status` and
+  `[internal reference removed] status`, and stops if a v6 remote job is running or queued (Seb's work has priority).
+- Outputs in `[internal reference removed]`: `plan.json`, `g1_<scale>.json`, `render_<scale>_<arm>_b<batch>.json`, `hecatefast_summary.json`.
+  Arrays and maps stay in git-ignored `[internal reference removed]` and are deleted afterwards.
 - **Kill date:** 2026-10-12. Not scored by then: closed as not run.

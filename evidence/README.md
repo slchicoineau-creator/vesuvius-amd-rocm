@@ -2,11 +2,11 @@
 
 Copies of the small result files and pre-registrations that `RESULTS.md` and `README.md` cite. All data behind them is public
 Vesuvius Challenge data (PHerc0841, PHerc1447, PHerc0826, and for the lasagna rows PHerc0500P2 and PHerc0814). Files are unchanged copies, except `preregs/`, where
-private path/scroll-name mentions were replaced by neutral words ("a private cache folder", "private-scroll", "nothing private"; 2026-10-14: in `2026-10-12_partner_fastpath_ruler.md` a private brief path became "a private team brief", in `2026-10-13_partner_lasagna_scope2.md` two mentions of a private scroll name became "no private scroll" / "private scrolls excluded").
+private path and name mentions were replaced by neutral words ("a private cache folder", "nothing private"; 2026-10-14: in `2026-10-12_partner_fastpath_ruler.md` a private brief path became "a private team brief").
 The lasagna `*_RESULT.md` files carry notes dated 2026-10-14 marked post hoc (zero-fill caveat, `RESULTS.md` section 10).
 In the result `.md` files, each path to a pre-registration now points into `preregs/` here. Only the path changed. The `.json` files are unchanged.
-Paths and issue numbers inside the preregs refer to the team's private working repository and are not shipped.
-`lasagna_fitsurface_RESULT.md` is kept as written on 2026-10-14. Its "pending" and "needs a human decision" lines were
+On 2026-10-20 internal references (paths into our working folders, request and issue numbers, machine, scheduler and other private names) were taken out of these files: inside `preregs/` each one was replaced by `[internal reference removed]` and nothing else in the copies was changed; in the result `.md` files each one was removed or replaced by a plain description.
+`lasagna_fitsurface_RESULT.md` is kept as written on 2026-10-14, except that its section "What may and may not be claimed" is now called "What this result does and does not show" and has lost its internal notes (the facts and numbers are the same). Its "pending" line was
 decided on 2026-10-15: no lasagna speed-up is offered (`RESULTS.md` section 10).
 
 | File | Used for |

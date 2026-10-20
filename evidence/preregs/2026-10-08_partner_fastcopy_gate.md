@@ -1,9 +1,9 @@
-# Pre-registration: FASTCOPY-GATE: is conv3d_fast `fp32_taps` in bf16 equivalent to stock bf16 for the copy model? (partner, Beast)
+# Pre-registration: FASTCOPY-GATE: is conv3d_fast `fp32_taps` in bf16 equivalent to stock bf16 for the copy model? (partner, [internal reference removed])
 
 - **Date:** 2026-10-08 (evening CDT). Pushed with the code, before any gate output exists (the commit time is the proof).
   **Owner:** partner (lane B machine). **Decision owner** for team use: Sebastien.
 - **Why:** copyfix Stage 0 failed the fast path in bf16 on one sub-crop (2.1x stock's rounding noise). The instrument check
-  `logs/partner/2026-10-08_conv3d_bf16_exact.md` (a116c24) showed that a one-crop ratio is mostly luck: on 8 sub-crops of
+  `[internal reference removed]` (a116c24) showed that a one-crop ratio is mostly luck: on 8 sub-crops of
   one crop, every mode spans about 0.3-1.9x, including a mode whose per-layer noise equals stock's. It also added the
   opt-in mode `fp32_taps` (per-layer noise at or below stock in all 71 layers; 0.87 s per full-crop forward vs 75.6 s stock).
   This gate asks, with many crops and at the copy's own decision metric, whether `fp32_taps` bf16 may replace stock bf16.
@@ -13,15 +13,15 @@
 
 ## Data
 
-- Strip **n81**: the native public surface s022814 (`work/ink/rerun_ttasign9/inputs/s022814_native`, 188 x 245 grid),
+- Strip **n81**: the native public surface s022814 (`[internal reference removed]`, 188 x 245 grid),
   rows 0-177 (S0c's rows), cols 81-102. S0c is cols 103-236 of the same grid, and its 22-column strips are all used
   (COPYFIX c00-c110, TTASIGN 66-87; only 2 columns remain), so the fresh strip is the 22 columns just left of S0c.
   3,809 vertices, z 13,089-16,122. No copy has used these columns. Normals are computed on the full native grid (ct9.normals).
-- The tool's own crop list at `--bbox-overlap 0.5`: **78 crops** (`work/ink/fastcopy/plan.json`, CPU, made before this push).
+- The tool's own crop list at `--bbox-overlap 0.5`: **78 crops** (`[internal reference removed]`, CPU, made before this push).
 - Scan PHerc0841 9.366 µm level 0, checkpoint `copy_displacement_latest.pth`, crop 128 x 384 x 384, bf16 (the
   checkpoint's own amp) except the reference.
 
-## Arms (script `work/ink/fastcopy/fc.py`, run by `job.sh`; one card, GPU 1)
+## Arms (script `[internal reference removed]`, run by `job.sh`; one card, GPU 1)
 
 All three are the tool's A0 copy as in COPYFIX: `--no-tta`, `--bbox-overlap 0.5`, batch 1, ct9's argv on strip n81.
 - **REF:** conv3d_fast default in fp32 (amp off), `ROCBLAS_USE_HIPBLASLT=0`. Exact: p99 0.0002 vs stock fp32 on a full real crop.
@@ -57,7 +57,7 @@ All three are the tool's A0 copy as in COPYFIX: `--no-tta`, `--bbox-overlap 0.5`
 
 - **PASS:** `fp32_taps` bf16 may be used for copy-model runs in place of stock bf16 (record `conv_path =
   conv3d_fast+fp32_taps`). TTA runs still need the G3 memory answer. Sebastien decides any team use.
-- **FAIL / VOID:** no change: copy runs on Beast stay stock bf16 or fast fp32.
+- **FAIL / VOID:** no change: copy runs on [internal reference removed] stay stock bf16 or fast fp32.
 - Not claimed: anything about other models (v8-in has its own gates), other scrolls, or which copy is on the right sheet.
 
 ## Open item (recorded, not part of this gate)
@@ -69,8 +69,8 @@ All three are the tool's A0 copy as in COPYFIX: `--no-tta`, `--bbox-overlap 0.5`
 ## Compute
 
 - REF and F32T copies: minutes each. STOCK: 78 crops x ~76 s + G1 extras ≈ 1.7-1.9 h on one card. TTA record: ~1 min.
-  One `gpu-share claim fastcopy` (3 h), released by the job's last line. `gpu-share status` is checked before launch;
+  One `[internal reference removed] claim fastcopy` (3 h), released by the job's last line. `[internal reference removed] status` is checked before launch;
   the job stops if another claim or a job of Sebastien's appears before it starts.
-- Outputs in `work/ink/fastcopy/`: `plan.json`, `copies/fc_<arm>.json`, `g1_hist.npz`, `g3_tta.json`,
+- Outputs in `[internal reference removed]`: `plan.json`, `copies/fc_<arm>.json`, `g1_hist.npz`, `g3_tta.json`,
   `fastcopy_summary.json`. Copy grids stay local (git-ignored).
 - **Kill date:** 2026-10-12. Not scored by then: closed as not run.

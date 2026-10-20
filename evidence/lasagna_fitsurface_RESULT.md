@@ -1,6 +1,6 @@
-# LASAGNA-FITSURFACE: RESULT (partner, lane B, Beast; AI-written)
+# LASAGNA-FITSURFACE: RESULT (partner, lane B; AI-written)
 
-Job finished 2026-10-14 07:46 CDT (gpu-share rc 0, `JOB_DONE`). Preregistration: `evidence/preregs/2026-10-13_partner_lasagna_fitsurface.md` (083b308e), amendment 1 (0ae5cac5, margin copy, GATE16-REAL), amendment 2 (6986cfe4, Stage 0 ladder R = 2000 / 1900 / 2100 and `cyl_init` steps 0). All numbers below were recomputed from the raw files on 2026-10-14 (method at the end).
+Job finished 2026-10-14 07:46 CDT (our GPU scheduler rc 0, `JOB_DONE`). Preregistration: `evidence/preregs/2026-10-13_partner_lasagna_fitsurface.md` (083b308e), amendment 1 (0ae5cac5, margin copy, GATE16-REAL), amendment 2 (6986cfe4, Stage 0 ladder R = 2000 / 1900 / 2100 and `cyl_init` steps 0). All numbers below were recomputed from the raw files on 2026-10-14 (method at the end).
 
 ## Verdict
 
@@ -8,7 +8,7 @@ Job finished 2026-10-14 07:46 CDT (gpu-share rc 0, `JOB_DONE`). Preregistration:
 2. **GATE16-REAL (secondary, real-data tiles only): FAIL (worse than stock).** R-hat 1.105, U 1.113, L 1.096, r 0.978 on 16 tiles that all read real scan data; the rule needs U <= 1.10 for a PASS.
 3. **How the two read together (amendment 1 wording, below):** the fitted-surface PASS is read as "the surfaces fitted from a not-shown-equivalent prediction". The package may not keep "within the 1.10 margin" for the lasagna fast path on real data.
 4. **Scope limit (amendment 2), stated plainly:** this test compares the shipped patch fit on FAST vs REF predictions from a shared analytic cylinder shell; the registered cylinder-shell step could not run on a crop-sized prediction box.
-5. **Open, not decided here:** whether this narrower test meets Sebastien's condition 2 is OPEN (issue #7, request WC-20261014-01). The decision is his, with the judge.
+5. **Open, not decided here:** whether this narrower test meets Sebastien's condition 2 is OPEN. The decision is his, with the judge.
 
 ## The frozen rules, quoted verbatim from the prereg files
 
@@ -62,7 +62,7 @@ Post hoc description (my split of the same numbers; not a registered statistic):
 
 ## Numbers: GATE16-REAL (`gate16_real.json`)
 
-16 tiles chosen by the registered draw ([4, 13, 17, 38, 47, 49, 59, 60, 64, 65, 66, 78, 84, 96, 106, 117]; matches `selected_calls` in `e2e_*.json`). All 125 tiles read real data (`coverage.json`: min real share 1.0, no chunk missing). Rule `work/ink/fastpath_ruler/rule.py` (sha256 f1d6c0f6...), unchanged.
+16 tiles chosen by the registered draw ([4, 13, 17, 38, 47, 49, 59, 60, 64, 65, 66, 78, 84, 96, 106, 117]; matches `selected_calls` in `e2e_*.json`). All 125 tiles read real data (`coverage.json`: min real share 1.0, no chunk missing). Rule `rule.py` (sha256 f1d6c0f6...), unchanged.
 
 | quantity | value |
 |---|---|
@@ -91,20 +91,18 @@ Plain reading: on tiles that read only real data the fast path has about 10 % mo
 
 Sum of `logs/gpu_seconds.jsonl` = **5,563 s = 1.545 GPU-h**; cap not reached, exit 79 not triggered, 2.45 GPU-h unused. The running total printed at each restart (`used_s` 0, 104, 2917, 2923, 2927, 3173) matches the file line by line. Main items: `pred_ref` 2,618 s, `pred_stock` 2,143 s, `pred_fast` 104 s (crashed) + 124 s, the 8 failed attempt-1 steps about 170 s, 240 s booked as an upper-bound estimate for the two scratch single-rung checks of amendment 2, the 9 fits 13 to 53 s each, 4 shells 6 to 28 s. CPU steps (fetch, coverage, `gate_recheck`, score) are not counted, as registered. Card 1 only (`HIP=1` in every start line).
 
-## What may and may not be claimed
+## What this result does and does not show
 
-May be said (internal; the package stays "pending Sebastien + judge"):
+What it shows:
 - By the frozen rule the fitted-surface test is a PASS: on this one crop (PHerc0841 9.366 um, x4372 y3722 z9572, 256^3), the shipped patch fit (`configs/init.json`, 1000 + 500 steps, depth 1, 200 x 200 vx) started from one shared analytic cylinder and a seed point gives surfaces from FAST predictions whose median distance to the REF-fitted surfaces (2.05 vx, 19 um) is inside the REF fits' own largest seed-to-seed distance (6.76 vx, 63 um). With the same seed point the FAST and REF surfaces are 0.16 to 0.89 vx apart (post hoc view).
-- GATE16-REAL failed: on 16 tiles that read only real data, the 3-layer `acc32_bias` fast path was not within the 1.10 margin of stock bf16's error against fp32 (R-hat 1.105, U 1.113). The package must say the fast path is not shown equivalent to stock on real-data tiles (offered only as an unvalidated speed option, or the lasagna row withdrawn: Sebastien and the judge decide which).
+- GATE16-REAL failed: on 16 tiles that read only real data, the 3-layer `acc32_bias` fast path was not within the 1.10 margin of stock bf16's error against fp32 (R-hat 1.105, U 1.113). The fast path is not shown equivalent to stock on real-data tiles. Decided 2026-10-15: not offered (`RESULTS.md` section 10).
 
-May not be said:
-- That the fast path was shown to give the same fitted surface as fp32 in the sense of Sebastien's condition 2. The test is narrower than registered (cylinder-shell step not run; all three arms start from the same analytic shell) and whether it meets his condition is open. The registered "re-run any number that goes into a submission on stock" stands until he says otherwise.
+What it does not show:
+- That the fast path gives the same fitted surface as fp32 in the sense of Sebastien's condition 2. The test is narrower than registered (cylinder-shell step not run; all three arms start from the same analytic shell). Whether it meets his condition was left open on 2026-10-14; decided 2026-10-15: not offered (`RESULTS.md` section 10). The registered "re-run any number that goes into a submission on stock" stands.
 - That the test separates FAST from stock. It does not: STOCK also passes (REF-STOCK median 2.34 vx, max 6.76 vx), as the prereg says it must be read ("the test cannot separate them"). The bar is loose: B is 0.66 of a sheet width and is set by how far the fit moves when the seed point moves 16 vx. M is the 5th of 9 sorted pairs and 6 of the 9 are cross-seed pairs, so M mostly measures the seed effect, not the prediction effect.
 - That the strict (max) reading holds. It does not: 6.832 vx > 6.757 vx (STOCK-vs-REF max 6.758 vx also sits 0.001 vx above B). Both are cross-seed pairs of the same size as the seed spread itself; this is reported as registered, not used to change the verdict.
 - Anything about the cylinder-shell step, the real umbilicus, many shells, the whole-scroll chain, other crops, scrolls, scales or models, `overlap` other than 64, or that either surface is the right sheet. The fitted patches are near-flat 5 x 5 vertex patches through the seed (post hoc: plane normal z component about -0.12 for seeds 1 and 2 and about -0.02 for seed 3 in REF; most of the REF seed-to-seed distance is that change of tilt between seed 3 and seeds 1/2).
 - A speed claim from this job (the wall times are not a benchmark).
-
-Needs a human decision: (1) Sebastien, with the judge: does this narrower test meet condition 2 (#7, WC-20261014-01)? (2) The lasagna row wording in the AMD package after GATE16-REAL FAIL.
 
 ## Method of the check
 
@@ -112,4 +110,4 @@ Needs a human decision: (1) Sebastien, with the judge: does this narrower test m
 
 ## Files
 
-`fitsurface.json`, `gate16_real.json`, `e2e_fast.json`, `e2e_ref.json`, `e2e_stock.json`, `coverage.json`, `R_used.txt`, `R2000/` (axis, shells, fits, `stage0_check.json`), `logs/` (`job.log`, `gpu.log`, `gpu_seconds.jsonl`, per-step logs), `stage0_attempt1_FAIL_exit78.json`. Prediction tensors are in git-ignored `work/cache/lasagna_fitsurface/`.
+`fitsurface.json`, `gate16_real.json`, `e2e_fast.json`, `e2e_ref.json`, `e2e_stock.json`, `coverage.json`, `R_used.txt`, `R2000/` (axis, shells, fits, `stage0_check.json`), `logs/` (`job.log`, `gpu.log`, `gpu_seconds.jsonl`, per-step logs), `stage0_attempt1_FAIL_exit78.json`. Prediction tensors are in a git-ignored folder of our working files, not in this repository.

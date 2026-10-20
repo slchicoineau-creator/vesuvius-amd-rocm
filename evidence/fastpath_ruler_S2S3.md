@@ -1,8 +1,8 @@
-# FASTPATH-RULER S2 and S3 result (2026-10-13, partner, Beast)
+# FASTPATH-RULER S2 and S3 result (2026-10-13, partner)
 
 Prereg `evidence/preregs/2026-10-12_partner_fastpath_ruler.md` as amended by `..._amend1.md` (c17bb1ac). Code committed before the run (014d4d4f). Raw: `s2.json`, `s2_raw.json`, `s3.json`, `s3_plan.json`, logs.
-Card 1 via `gpu-share job set --card 1`; ROCBLAS_USE_HIPBLASLT=1 (S2, S3 bf16 arms), 0 (S3 REF fp32). The job was paused once by another claim (`neural-sheet9`) and restarted from zero; the reported run is the uninterrupted second one.
-OC line: FAIL 5.7 % at R = 1.00, 81 % at 1.05, 99.5 % at 1.10 (`judge_20261013/judge_sim.json`, n = 20).
+Card 1 (through our GPU scheduler); ROCBLAS_USE_HIPBLASLT=1 (S2, S3 bf16 arms), 0 (S3 REF fp32). The job was paused once by another claim and restarted from zero; the reported run is the uninterrupted second one.
+OC line: FAIL 5.7 % at R = 1.00, 81 % at 1.05, 99.5 % at 1.10 (n = 20; the simulation file is in our working files, not in this repository).
 
 ## S2 (copy model, 78 FASTCOPY crops; REF/taps/acc32_bias recomputed, stock errors from fc_STOCK.json)
 Check: recomputed mean|REF| equals the stored value on every crop (max rel. deviation 0.0).

@@ -49,7 +49,7 @@ not find root causes in the driver.
     in bf16; in fp32 our R9700 matched the CPU within 1e-4.
   - On the stock MIOpen 3-D path, lasagna inference on one R9700 was about 4x slower than a 32-thread CPU (17 s per tile; target ~3.7 s/tile, the CPU's rate). The first tile is
     NOT slow (17.3 s in the log); an extra ~340 s per run comes from lasagna's own GPU hand-off (`[gpu_pause] pause failed:
-    timed out`, 300 s default wait), not from MIOpen compilation. Confirmed 2026-10-13 (start to tile 1 = 20 s with no stale owner). The 16.9 s/tile is 3 full-resolution layers (192^3, 32/64 channels) on MIOpen's naive bf16 conv kernel (16.1 s of 16.5 s); the other 79 convs are fast. See work/rocm_ports/out/lasagna_profile/RESULT.md.
+    timed out`, 300 s default wait), not from MIOpen compilation. Confirmed 2026-10-13 (start to tile 1 = 20 s with no stale owner). The 16.9 s/tile is 3 full-resolution layers (192^3, 32/64 channels) on MIOpen's naive bf16 conv kernel (16.1 s of 16.5 s); the other 79 convs are fast. See the lasagna profile result (our working files, not in this repository).
   - Lasagna's cylinder extension needs libigl 2.6 headers (2.5.0 fails to build); they are not pip-installable
     (`LIBIGL_INCLUDE_DIR`, `EIGEN_INCLUDE_DIR`).
   - villa PR #2055 (opened 2026-10-12, vincentl065: "spiral-fitting: read SQLite-backed track DBMs on Python < 3.13 (enables

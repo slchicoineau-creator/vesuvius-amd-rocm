@@ -1,7 +1,7 @@
-# LASAGNA-GATE16 result (2026-10-13, partner, Beast): FAIL (worse than stock); measured end-to-end speed-up 10.3x but not usable under the rule
+# LASAGNA-GATE16 result (2026-10-13, partner): FAIL (worse than stock); measured end-to-end speed-up 10.3x but not usable under the rule
 
 Prereg `evidence/preregs/2026-10-13_partner_lasagna_gate16.md` (978906e7, pushed before any output). Condition: FASTPATH-RULER S2 did not kill the rule (taps/acc32_bias false pass at 1.10: 1.2 % / 0.4 %).
-Card 1 (gpu-share card job), bf16 autocast, ROCBLAS_USE_HIPBLASLT=1 (REF process 0), 16 of the 125 tiles (seed 20261012, call indices in gate16.json). FAST = fp32_taps on exactly the 3 registered layers, all other Conv3d pinned stock. The job was paused once by another claim and restarted from zero; the reported steps ran uninterrupted.
+Card 1, bf16 autocast, ROCBLAS_USE_HIPBLASLT=1 (REF process 0), 16 of the 125 tiles (seed 20261012, call indices in gate16.json). FAST = fp32_taps on exactly the 3 registered layers, all other Conv3d pinned stock. The job was paused once by another claim and restarted from zero; the reported steps ran uninterrupted.
 No `libmagma.so` / oneMKL error occurred in any log.
 
 ## Rule (n = 16; unit = summed |raw output - fp32 REF| per 192^3 tile)

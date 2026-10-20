@@ -1,9 +1,9 @@
 # FASTCOPY-GATE result: PASS (2026-10-08)
 
-Chris's Claude on Beast. Prereg `evidence/preregs/2026-10-08_partner_fastcopy_gate.md` (b3eff53, pushed before any output), judge issue #15.
+Chris's Claude on our workstation (2 × Radeon AI PRO R9700). Prereg `evidence/preregs/2026-10-08_partner_fastcopy_gate.md` (b3eff53, pushed before any output).
 Question: may conv3d_fast `fp32_taps` in bf16 replace stock bf16 for the copy model? Reference = fast fp32.
 Strip n81 (native s022814, rows 0-177, cols 81-102), 78 tool crops, A0 setting (`--no-tta`, overlap 0.5). One card (GPU 1).
-Data: `work/ink/fastcopy/fastcopy_summary.json`, `g3_tta.json`, `copies/fc_<arm>.json`.
+Data: `fastcopy_summary.json` (a copy is in this folder), `g3_tta.json`, `copies/fc_<arm>.json` (our working files, not in this repository).
 
 ## Verdict: PASS (G1 and G2 pass; all copy checks passed, identical crop lists)
 
@@ -26,7 +26,7 @@ Data: `work/ink/fastcopy/fastcopy_summary.json`, `g3_tta.json`, `copies/fc_<arm>
 | copy wall time, 78 crops | 6,528 s | 354 s | 496 s |
 | peak reserved VRAM, copy | 29.7 GB | 20.3 GB | 31.1 GB |
 
-- The fast fp32 copy peaks at 31.1 GB reserved: **over Beast's new 30.5 GB limit** (set by Chris tonight).
+- The fast fp32 copy peaks at 31.1 GB reserved: **over our workstation's new 30.5 GB limit** (set by Chris tonight).
 - One 8-variant FIX TTA call with `fp32_taps` (first crop): 8.9 s, 22.1 GB allocated, **28.86 GB reserved**. That fits the new
   30.5 GB limit (the earlier 28 GB margin no longer applies).
 - Copy wall times include S3 reads, so `fp32_taps` is 18x faster than stock per copy here (88x per forward).

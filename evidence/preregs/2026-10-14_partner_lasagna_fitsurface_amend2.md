@@ -1,6 +1,6 @@
 # Amendment 2 (2026-10-14, before any fitted-surface result): Stage 0 shell step re-set so the cylinder tool can run on a 384^3 prediction box
 
-- **Date:** 2026-10-14, written after the Stage 0 failure (job exit 78 at 02:00 CDT) and before any re-run. **Owner:** partner (lane B). Parent: `prereg/2026-10-13_partner_lasagna_fitsurface.md` (083b308e) + amendment 1 (0ae5cac5).
+- **Date:** 2026-10-14, written after the Stage 0 failure (job exit 78 at 02:00 CDT) and before any re-run. **Owner:** partner (lane B). Parent: `[internal reference removed]` (083b308e) + amendment 1 (0ae5cac5).
 - **What exists on disk now (stated so the reader can judge "before results"):** the REF and FAST predictions (amendment 1, unchanged), the three failed REF Stage 0 attempts (`R600/`, `R900/`, `R1500/`: REF cylinder shells and three fit logs that stop in `init_shell_index.py`), `stage0_attempt1_FAIL_exit78.json`. **Not looked at and not existing:** any FAST or STOCK shell or fit, any fitted tifxyz that passed a check, any distance between arms, any score. Two scratch single-rung checks on REF seed 1 (see "Evidence") were run outside the job folder; their surfaces are discarded and not used for any number.
 - **Nothing about the decision rule changes:** metric, scorer, bar B, statistic M, PASS iff M <= B, seeds, shipped `configs/init.json` (1000 + 500 steps), the 4.0 GPU-h cap (cumulative; the two scratch checks, at most 240 s, are booked in `logs/gpu_seconds.jsonl`), exit codes 78 / 79, and the amendment-1 job order all stand.
 

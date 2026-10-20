@@ -1,7 +1,7 @@
-# LASAGNA-GATE16b step 1: why did fp32_taps fail? (2026-10-13, partner, Beast; diagnosis, not a gate)
+# LASAGNA-GATE16b step 1: why did fp32_taps fail? (2026-10-13, partner; diagnosis, not a gate)
 
 Question: GATE16 showed stock bf16 error 1x, fp32_taps 2.06x (R-hat) vs the fp32 REF, although fp32_taps is the "stock math". Which precision step makes the error?
-All runs: card 1 via gpu-share, bf16 autocast, ROCBLAS_USE_HIPBLASLT=1, the real model/crop of GATE16. Scripts and raw JSON are in this folder.
+All runs: card 1, bf16 autocast, ROCBLAS_USE_HIPBLASLT=1, the real model/crop of GATE16. Scripts and raw JSON are in this folder.
 
 ## What the modes do (conv3d_fast.py, read at 66e28cf0)
 | mode | input / weight / bias | accumulation | output |

@@ -1,15 +1,15 @@
-# Pre-registration: LASAGNA-GATE16. Is `conv3d_fast` fp32_taps on the 3 naive-kernel layers equivalent to stock bf16 for lasagna predict3d, and what is the measured end-to-end speed-up? (partner, Beast)
+# Pre-registration: LASAGNA-GATE16. Is `conv3d_fast` fp32_taps on the 3 naive-kernel layers equivalent to stock bf16 for lasagna predict3d, and what is the measured end-to-end speed-up? (partner, [internal reference removed])
 
 - **Date:** 2026-10-13. Pushed before any gate output exists. **Owner:** partner (lane B). Decision owner for team use: Sebastien.
-- **Parents:** `prereg/2026-10-13_partner_lasagna_profile.md` (S0-S2 done, `work/rocm_ports/out/lasagna_profile/RESULT.md`, d1d185d2:
-  projected 12.7x >= 4.6x, "the 16-tile gate with pick 1's rule decides"), `prereg/2026-10-12_partner_fastpath_ruler.md` + `..._amend1.md` (the rule).
+- **Parents:** `[internal reference removed]` (S0-S2 done, `[internal reference removed]`, d1d185d2:
+  projected 12.7x >= 4.6x, "the 16-tile gate with pick 1's rule decides"), `[internal reference removed]` + `..._amend1.md` (the rule).
   **This gate runs only if the FASTPATH-RULER S2 did not KILL the rule** (condition checked and quoted in the result).
 - **Truth rule:** no labels, no humans, no keys, no w00. Every error is against the fp32 stock reference computed on the same input tile.
 
 ## Setup (frozen)
 - Model/data: `lasagna_model_current.pt`, public PHerc0841 crop x4372 y3722 z9572, 256^3, the exact `predict3d` command of
-  `work/rocm_ports/scripts/las_predict.sh` (`--scaledown 2 --cos-scaledown 1`, tile 192, 125 tiles per pass). The tiles are the ones the tool builds
-  (real preprocessing); the script `work/rocm_ports/out/lasagna_gate16/las_gate16.py` only replaces `run_tile_inference` / `load_model` on the adapter.
+  `[internal reference removed]` (`--scaledown 2 --cos-scaledown 1`, tile 192, 125 tiles per pass). The tiles are the ones the tool builds
+  (real preprocessing); the script `[internal reference removed]` only replaces `run_tile_inference` / `load_model` on the adapter.
 - **16 tiles:** the tool's tile call indices (0..124), `numpy.random.default_rng(20261012).choice(125, 16, replace=False)`, sorted. Asserted at run time that
   the pass has 125 tiles. No selection on any output.
 - **Arms**, per selected tile, same input tensor:
@@ -38,6 +38,6 @@
 - FAIL / NOT SHOWN EQUIVALENT: stock bf16 stays; the speed-up is reported as measured but not usable under the rule.
 
 ## Compute
-`gpu-share job set --card <free card>` (the previous lasagna run's mechanism); nothing displaced. REF 16 tiles + STOCK/FAST 16 tiles (about 10 min stock + fast),
+`[internal reference removed] job set --card <free card>` (the previous lasagna run's mechanism); nothing displaced. REF 16 tiles + STOCK/FAST 16 tiles (about 10 min stock + fast),
 two full passes (stock about 35 min, fast a few minutes). If the transient `Cannot load libmagma.so` error recurs it is diagnosed (env / LD path) before any retry and reported.
-Kill date: 2026-10-26. Outputs: `work/rocm_ports/out/lasagna_gate16/` (`gate16.json`, `ref.json`, `both.json`, `e2e_*.json`, logs); tensors in git-ignored `work/cache/lasagna_gate16/`.
+Kill date: 2026-10-26. Outputs: `[internal reference removed]` (`gate16.json`, `ref.json`, `both.json`, `e2e_*.json`, logs); tensors in git-ignored `[internal reference removed]`.
